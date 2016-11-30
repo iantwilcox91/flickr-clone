@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<FlickrClone.Models.Picture>
+@using System.Security.Claims
+
+<h2>Here are @User.Identity.Name's pictures</h2>
+<hr />
+
+@if (Model.Any())
+{
+    <ul>
+        @foreach (var listItem in Model)
+        {
+            <p>@Html.DisplayFor(modelItem => listItem.Description)</p>
+            <img src="@Html.DisplayFor(modelItem => listItem.Url)" width="150" height="150">
+
+        }
+    </ul>
+}
+else
+{
+    <p>No pictures have been added yet!</p>
+}
+
+
+
+@Html.ActionLink("Create new picture post", "Create")
