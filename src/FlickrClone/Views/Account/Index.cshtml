@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*we need to add @using System.Security.Claims in order to access the User.Identity properties IsAuthenticated and Name*@
+
+@using System.Security.Claims
+
+<img src="http://www.infront.com/library/thumbnails/676/original/flickr-icon.jpg?1441288883" alt="logo" width="150" height="150">
+
+<hr />
+@*if you are logged in you see this*@
+@if (User.Identity.IsAuthenticated)
+{
+    <p>Hello @User.Identity.Name!</p>
+    @using (Html.BeginForm("LogOff", "Account"))
+    {
+        <input type="submit" class="btn btn-default" value="Log out" />
+    }
+}
+@*if you are not logged in you see this*@
+else
+{
+    <p>@Html.ActionLink("Register", "Register")</p>
+    <p>@Html.ActionLink("Log in", "Login")</p>
+}
