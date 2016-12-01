@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using FlickrClone.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -46,6 +47,34 @@ namespace FlickrClone.Controllers
             var currentUser = await _userManager.FindByIdAsync(userId);
             picture.User = currentUser;
             _db.Pictures.Add(picture);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public IActionResult Edit(int id)
+        {
+            var thisPicture = _db.Pictures.FirstOrDefault(pictures => pictures.Id == id);
+            return View(thisPicture);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Picture picture)
+        {
+            _db.Entry(picture).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var thisPicture = _db.Pictures.FirstOrDefault(pictures => pictures.Id == id);
+            return View(thisPicture);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var thisPicture = _db.Pictures.FirstOrDefault(pictures => pictures.Id == id);
+            _db.Pictures.Remove(thisPicture);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }

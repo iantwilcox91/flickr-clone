@@ -5,10 +5,6 @@
 
 @*we need to add @using System.Security.Claims in order to access the User.Identity properties IsAuthenticated and Name*@
 
-@using System.Security.Claims
-
-<img src="http://www.infront.com/library/thumbnails/676/original/flickr-icon.jpg?1441288883" alt="logo" width="150" height="150">
-
 <hr />
 @*if you are logged in you see this*@
 @if (User.Identity.IsAuthenticated)

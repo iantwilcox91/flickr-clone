@@ -11,14 +11,14 @@
 
 @if (Model.Any())
 {
-    <ul>
+    <div>
         @foreach (var listItem in Model)
         {
             <p>@Html.DisplayFor(modelItem => listItem.Description)</p>
             <img src="@Html.DisplayFor(modelItem => listItem.Url)" width="150" height="150">
 
         }
-    </ul>
+    </div>
 }
 else
 {
